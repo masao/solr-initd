@@ -24,7 +24,11 @@
 # Description:       init script for solr search
 #                    This should be placed in /etc/init.d
 ### END INIT INFO
-if [ ! -e /etc/redhat-release ]; then
+
+grep --silent "Amazon Linux AMI" /etc/issue
+is_amazon_ami=$?
+
+if [ ! $is_amazon_ami -o -e /etc/redhat-release ]; then
     echo "This is built for RHEL/Fedora/CentOS, you may need to alter it to fit your distribution"
     exit 1
 fi
